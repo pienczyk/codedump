@@ -75,7 +75,7 @@ jobs:
           #git config --local user.email "github-actions@github.com"
           #git switch $DEPLOYMENT_BRANCH
           TAG_NAME=${GITHUB_REF#refs/tags/}  # Remove 'refs/tags/' prefix
-          echo "${TAG_NAME}"
+          echo "Tag name: ${TAG_NAME}"
           #sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$FIRST_TAG/g' $DEPLOYMENT_FILE
           #git add $DEPLOYMENT_FILE
           #git push origin $DEPLOYMENT_BRANCH
