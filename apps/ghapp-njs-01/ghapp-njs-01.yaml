@@ -6,7 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ghapp-njs-01
-  namespace: ghapp02
+  namespace: ghapp-njs-01
   labels:
     kind: deployment
 spec:
@@ -45,7 +45,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ghapp-njs-01-svc
-  namespace: ghapp01
+  namespace: ghapp-njs-01
 spec:
   selector:
     app: ghapp-njs-01
@@ -59,13 +59,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ghapp-njs-01-ing
-  namespace: ghapp01
+  namespace: ghapp-njs-01
   labels:
     app: ghapp-njs-01
     kind: ingress
 spec:
   rules:
-    - host: ghapp01.testowy.org
+    - host: ghapp-njs-01.testowy.org
       http:
         paths:
           - pathType: Prefix
