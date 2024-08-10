@@ -49,6 +49,7 @@ jobs:
 
       # Build and push yt-2-mp3 to the Docker hub
       - name: Build and push
+        id: build_and_push
         uses: docker/build-push-action@v5
         with:
           file: apps/ghapp-njs-01/Dockerfile
@@ -67,3 +68,21 @@ jobs:
           ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL, HIGH"
+
+      - name: Modify deployment
+        run: |
+          FIRST_TAG=$(echo "${{ steps.meta.outputs.tags }}" | cut -d',' -f1)
+          sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$FIRST_TAG/g' $DEPLOYMENT_FILE
+        env:
+          DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
+
+      - name: Push new deployment file
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add $DEPLOYMENT_FILE
+          git push origin $DEPLOYMENT_BRANCH
+        env:
+          DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
+          DEPLOYMENT_BRANCH: "gighapp-njs-01"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
