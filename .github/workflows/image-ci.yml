@@ -72,18 +72,19 @@ jobs:
       - name: Modify deployment
         run: |
           FIRST_TAG=$(echo "${{ steps.meta.outputs.tags }}" | cut -d',' -f1)
-          sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$FIRST_TAG/g' $DEPLOYMENT_FILE
+          echo $FIRST_TAG
+          #sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$FIRST_TAG/g' $DEPLOYMENT_FILE
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
 
-      - name: Push new deployment file
-        run: |
-          git config --local user.name "github-actions"
-          git config --local user.email "github-actions@github.com"
-          git switch $DEPLOYMENT_BRANCH
-          git add $DEPLOYMENT_FILE
-          git push origin $DEPLOYMENT_BRANCH
-        env:
-          DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
-          DEPLOYMENT_BRANCH: "ghapp-njs-01"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #- name: Push new deployment file
+          #  run: |
+          #    git config --local user.name "github-actions"
+          #    git config --local user.email "github-actions@github.com"
+          #    git switch $DEPLOYMENT_BRANCH
+          #    git add $DEPLOYMENT_FILE
+          #    git push origin $DEPLOYMENT_BRANCH
+          #  env:
+          #    DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
+          #    DEPLOYMENT_BRANCH: "ghapp-njs-01"
+          #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
