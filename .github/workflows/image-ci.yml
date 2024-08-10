@@ -49,7 +49,6 @@ jobs:
 
       # Build and push to the Docker hub
       - name: Build and push
-        id: build_and_push
         uses: docker/build-push-action@v5
         with:
           file: apps/ghapp-njs-01/Dockerfile
@@ -76,6 +75,7 @@ jobs:
           echo "::set-output name=tag_name::${TAG_NAME}"  # Set the output variable
 
   change_deployment:
+    needs: build-tag-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout deployment code
