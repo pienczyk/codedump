@@ -3,8 +3,8 @@ name: image-ci
 # When action should run
 on:
   push:
-    branches:
-      - dockerbuild
+    tags:
+      - "*"
 env:
   image_name: "pienczyk/ghapp-njs-01"
 
