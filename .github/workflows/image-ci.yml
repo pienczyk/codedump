@@ -47,16 +47,16 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern=v{{version}}
 
-      # Build and push yt-2-mp3 to the Docker hub
-      #- name: Build and push
-      #  id: build_and_push
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    file: apps/ghapp-njs-01/Dockerfile
-      #    context: apps/ghapp-njs-01/
-      #    tags: ${{ steps.meta.outputs.tags }}
-      #    platforms: linux/amd64
-      #    push: true
+      # Build and push to the Docker hub
+      - name: Build and push
+        id: build_and_push
+        uses: docker/build-push-action@v5
+        with:
+          file: apps/ghapp-njs-01/Dockerfile
+          context: apps/ghapp-njs-01/
+          tags: ${{ steps.meta.outputs.tags }}
+          platforms: linux/amd64
+          push: false
 
       # Scan the image with Trivy vulnerability scanner
       - name: Trivy vulnerability scanner
