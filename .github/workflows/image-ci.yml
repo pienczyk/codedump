@@ -73,13 +73,13 @@ jobs:
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
-          git switch $DEPLOYMENT_BRANCH
+          #git switch $DEPLOYMENT_BRANCH
           TAG_NAME=${GITHUB_REF#refs/tags/}  # Remove 'refs/tags/' prefix
           echo "Tag name: ${TAG_NAME}"
           sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$TAG_NAME/g' $DEPLOYMENT_FILE
           git add $DEPLOYMENT_FILE
           git commit -m "Image updated to version: ${TAG_NAME}"
-          git push origin $DEPLOYMENT_BRANCH
+          git push origin HEAD
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
           DEPLOYMENT_BRANCH: "ghapp-njs-01"
