@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: ghapp-njs-01
-          image: nginx:alpine3.18
+          image: pienczyk/ghapp-njs-01:0.0.2
           resources:
             requests:
               memory: "50Mi"
@@ -31,14 +31,6 @@ spec:
               cpu: "1"
           ports:
             - containerPort: 80
-          volumeMounts:
-            - mountPath: /usr/share/nginx/html
-              name: ghapp-njs-01-v
-      volumes:
-        - name: ghapp-njs-01-v
-          configMap:
-            name: ghapp-njs-01-cm
-
 # Service
 ---
 apiVersion: v1
