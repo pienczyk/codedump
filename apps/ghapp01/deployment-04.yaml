@@ -77,7 +77,7 @@ metadata:
     kind: ingress
 spec:
   rules:
-    - host: ingress.testowy.org
+    - host: ghapp01.testowy.org
       http:
         paths:
           - pathType: Prefix
