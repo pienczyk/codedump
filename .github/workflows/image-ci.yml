@@ -84,5 +84,5 @@ jobs:
           git push origin $DEPLOYMENT_BRANCH
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
-          DEPLOYMENT_BRANCH: "gighapp-njs-01"
+          DEPLOYMENT_BRANCH: "ghapp-njs-01"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
