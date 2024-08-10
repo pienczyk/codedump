@@ -9,7 +9,7 @@ metadata:
   namespace: ghapp01
 data:
   index.html: |
-    Welcome from the ConfigMap and Ingress
+    <center> ghapp01 </center>
 
 
 # Deployment
