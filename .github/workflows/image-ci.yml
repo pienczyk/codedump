@@ -55,7 +55,7 @@ jobs:
           context: apps/ghapp-njs-01/
           tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64
-          push: false
+          push: true
 
       # Scan the image with Trivy vulnerability scanner
       - name: Trivy vulnerability scanner
