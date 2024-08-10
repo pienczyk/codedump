@@ -81,9 +81,7 @@ jobs:
       - name: Checkout deployment code
         uses: actions/checkout@v4
         with:
-          ref: $DEPLOYMENT_BRANCH
-        env:
-          DEPLOYMENT_BRANCH: "ghapp-njs-01"
+          ref: ghapp-njs-01
 
       - name: Push new deployment file
         run: |
