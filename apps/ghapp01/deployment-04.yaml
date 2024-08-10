@@ -6,7 +6,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-deployment-04-cm
-  namespace: ghapps01
+  namespace: ghapp01
 data:
   index.html: |
     Welcome from the ConfigMap and Ingress
@@ -18,7 +18,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-deployment-04
-  namespace: ghapps01
+  namespace: ghapp01
   labels:
     kind: deployment
 spec:
@@ -57,7 +57,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app-deployment-04-svc
-  namespace: ghapps01
+  namespace: ghapp01
 spec:
   selector:
     app: ingress-app
@@ -71,7 +71,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app-deployment-04-ing
-  namespace: ghapps01
+  namespace: ghapp01
   labels:
     app: ingress-app
     kind: ingress
