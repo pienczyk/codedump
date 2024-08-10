@@ -6,10 +6,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-deployment-04-cm
-  namespace: playground
+  namespace: ghapps01
 data:
   index.html: |
     Welcome from the ConfigMap and Ingress
+
 
 # Deployment
 ---
@@ -17,13 +18,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-deployment-04
-  namespace: playground
+  namespace: ghapps01
   labels:
     kind: deployment
 spec:
   selector:
     matchLabels:
-        app: ingress-app
+      app: ingress-app
   template:
     metadata:
       name: app-deployment-04
@@ -56,14 +57,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app-deployment-04-svc
-  namespace: playground
+  namespace: ghapps01
 spec:
   selector:
     app: ingress-app
   ports:
-  - port: 80
-    targetPort: 80
-
+    - port: 80
+      targetPort: 80
 
 # Ingress
 ---
@@ -71,19 +71,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app-deployment-04-ing
-  namespace: playground
+  namespace: ghapps01
   labels:
     app: ingress-app
     kind: ingress
 spec:
   rules:
-  - host: ingress.testowy.org
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: app-deployment-04-svc
-            port:
-              number: 80
+    - host: ingress.testowy.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: app-deployment-04-svc
+                port:
+                  number: 80
