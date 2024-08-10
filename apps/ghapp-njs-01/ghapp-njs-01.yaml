@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: ghapp-njs-01
-          image: pienczyk/ghapp-njs-01:0.3.2
+          image: pienczyk/ghapp-njs-01:0.3.3
           resources:
             requests:
               memory: "50Mi"
