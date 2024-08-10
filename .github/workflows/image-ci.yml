@@ -13,6 +13,8 @@ env:
 jobs:
   build-tag-push:
     runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.get_tag.outputs.tag_name }}
     steps:
       # Checkout self to a runner
       - name: Checkout
@@ -34,9 +36,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Build, tag and push
-
-      # yt-2-mp3
-      # Build metadata for yt-2-mp3 image
+      # Build metadata image
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -69,12 +69,26 @@ jobs:
           vuln-type: "os,library"
           severity: "CRITICAL, HIGH"
 
+      - name: Export image tag
+        id: get_tag
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}  # Remove 'refs/tags/' prefix
+          echo "::set-output name=tag_name::${TAG_NAME}"  # Set the output variable
+
+  change_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deployment code
+        uses: actions/checkout@v4
+        with:
+          ref: $DEPLOYMENT_BRANCH
+        env:
+          DEPLOYMENT_BRANCH: "ghapp-njs-01"
+
       - name: Push new deployment file
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
-          TAG_NAME=${GITHUB_REF#refs/tags/}  # Remove 'refs/tags/' prefix
-          echo "Tag name: ${TAG_NAME}"
           sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$TAG_NAME/g' $DEPLOYMENT_FILE
           git add $DEPLOYMENT_FILE
           git commit -m "Image updated to version: ${TAG_NAME}"
