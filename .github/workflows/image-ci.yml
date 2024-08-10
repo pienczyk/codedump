@@ -79,7 +79,7 @@ jobs:
           sed -i 's/[0-9]\+\.[0-9]\+\.[0-9]\+/$TAG_NAME/g' $DEPLOYMENT_FILE
           git add $DEPLOYMENT_FILE
           git commit -m "Image updated to version: ${TAG_NAME}"
-          git push origin HEAD
+          git push origin $DEPLOYMENT_BRANCH
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
           DEPLOYMENT_BRANCH: "ghapp-njs-01"
