@@ -1,0 +1,69 @@
+# Deployment with the ingress
+# Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-ghapp-njs-01
+  namespace: argocd-ghapp-njs-01
+  labels:
+    kind: deployment
+spec:
+  selector:
+    matchLabels:
+      app: ingress-app
+  template:
+    metadata:
+      name: argocd-ghapp-njs-01
+      labels:
+        app: ingress-app
+    spec:
+      containers:
+        - name: argocd-ghapp-njs-01
+          image: pienczyk/ghapp-njs-01:v0.4.2
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "1"
+          ports:
+            - containerPort: 80
+
+# Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-ghapp-njs-01-svc
+  namespace: argocd-ghapp-njs-01
+spec:
+  selector:
+    app: ingress-app
+  ports:
+    - port: 80
+      targetPort: 80
+
+# Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-ghapp-njs-01-ing
+  namespace: argocd-ghapp-njs-01
+  labels:
+    app: ingress-app
+    kind: ingress
+spec:
+  rules:
+    - host: argocd-ghapp-njs-01.testowy.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: argocd-ghapp-njs-01-svc
+                port:
+                  number: 80
