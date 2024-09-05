@@ -81,7 +81,7 @@ jobs:
       - name: Checkout deployment code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.ref_name }}
 
       - name: Push new deployment file
         run: |
@@ -90,9 +90,10 @@ jobs:
           sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${TAG_NAME}/g" $DEPLOYMENT_FILE
           git add $DEPLOYMENT_FILE $INDEX_FILE
           git commit -m "Image updated to version: ${TAG_NAME}"
-          git push HEAD $DEPLOYMENT_BRANCH
+          #git push HEAD $DEPLOYMENT_BRANCH
+          git push
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEPLOYMENT_BRANCH: ${{ github.head_ref }}
+          #          DEPLOYMENT_BRANCH: ${{ github.head_ref }}
           TAG_NAME: ${{ needs.build-tag-push.outputs.image_tag }}
