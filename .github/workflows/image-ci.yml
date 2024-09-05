@@ -106,10 +106,25 @@ jobs:
       - name: Call ArgoCD api
         id: call_argo_dev
         run: |
-          http POST "$ARGOCD_SERVER/api/v1/applications/${APP_TO_UPDATE}/sync" \
-          Authorization:"Bearer $ARGOCD_TOKEN" \
-          Content-Type:application/json \
-          revision="${DEPLOYMENT_BRANCH}" prune:=false dryRun:=false strategy:='{ "hook": { "force": true } }'
+          curl -X POST \
+            "$ARGOCD_SERVER/api/v1/applications/my-app/sync" \
+            -H "Authorization: Bearer $ARGOCD_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "revision": "DEPLOYMENT_BRANCH",
+              "prune": false,
+              "dryRun": false,
+              "resources": null,
+              "strategy": {
+                "hook": {
+                  "force": true
+                }
+              }
+            }'
+            #http POST "$ARGOCD_SERVER/api/v1/applications/${APP_TO_UPDATE}/sync" \
+            #Authorization:"Bearer $ARGOCD_TOKEN" \
+            #Content-Type:application/json \
+            #revision="${DEPLOYMENT_BRANCH}" prune:=false dryRun:=false strategy:='{ "hook": { "force": true } }'
         env:
           ARGOCD_SERVER: "https://localhost:8080"
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
