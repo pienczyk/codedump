@@ -81,7 +81,7 @@ jobs:
       - name: Checkout deployment code
         uses: actions/checkout@v4
         with:
-          ref: ghapp-njs-01
+          ref: ${{ github.head_ref }}
 
       - name: Push new deployment file
         run: |
@@ -93,6 +93,5 @@ jobs:
           git push
         env:
           DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
-          DEPLOYMENT_BRANCH: "ghapp-njs-01"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ needs.build-tag-push.outputs.image_tag }}
