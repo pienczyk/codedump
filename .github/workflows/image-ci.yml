@@ -93,7 +93,7 @@ jobs:
           #git push HEAD $DEPLOYMENT_BRANCH
           git push
         env:
-          DEPLOYMENT_FILE: "apps/ghapp-njs-01/ghapp-njs-01.yaml"
+          DEPLOYMENT_FILE: "apps/argocd-ghapp-njs-01/deployment.yaml"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #          DEPLOYMENT_BRANCH: ${{ github.head_ref }}
           TAG_NAME: ${{ needs.build-tag-push.outputs.image_tag }}
