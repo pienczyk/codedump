@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: argocd-ghapp-njs-01
-          image: pienczyk/ghapp-njs-01:v0.4.4
+          image: pienczyk/ghapp-njs-01:v0.4.5
           resources:
             requests:
               memory: "50Mi"
