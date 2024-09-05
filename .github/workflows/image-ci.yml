@@ -81,7 +81,7 @@ jobs:
       - name: Checkout deployment code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ghapp-njs-01-argocd-image-updater
 
       - name: Push new deployment file
         run: |
