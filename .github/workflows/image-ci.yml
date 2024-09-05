@@ -105,14 +105,13 @@ jobs:
     steps:
       - name: Call ArgoCD api
         id: call_argo_dev
-        run:
-          run: |
-            http POST "$ARGOCD_SERVER/api/v1/applications/${APP_TO_UPDATE}/sync" \
-              Authorization:"Bearer $ARGOCD_TOKEN" \
-              Content-Type:application/json \
-              revision="${DEPLOYMENT_BRANCH}" prune:=false dryRun:=false strategy:='{ "hook": { "force": true } }'
+        run: |
+          http POST "$ARGOCD_SERVER/api/v1/applications/${APP_TO_UPDATE}/sync" \
+          Authorization:"Bearer $ARGOCD_TOKEN" \
+          Content-Type:application/json \
+          revision="${DEPLOYMENT_BRANCH}" prune:=false dryRun:=false strategy:='{ "hook": { "force": true } }'
         env:
           ARGOCD_SERVER: "https://localhost:8080"
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
           APP_TO_UPDATE: "argocd-auto-update-01"
-					DEPLOYMENT_BRANCH: "ghapp-njs-01-argocd-image-updater"
+          DEPLOYMENT_BRANCH: "ghapp-njs-01-argocd-image-updater"
