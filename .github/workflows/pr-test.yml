@@ -30,7 +30,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
     runs-on: ubuntu-latest
-    environment: test
+    environment: stage
 
     steps:
       - name: Check out the code
