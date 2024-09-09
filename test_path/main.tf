@@ -26,6 +26,7 @@ resource "azurerm_cdn_endpoint" "main" {
   tags = var.tags
 }
 
+# variables
 variable "location" {
   type = string
   default = "westeurope"
