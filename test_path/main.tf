@@ -21,7 +21,7 @@ resource "azurerm_cdn_endpoint" "main" {
 
   origin {
     name      = "main"
-    host_name = "www.contoso.com"
+    host_name = "www.example.com"
   }
   tags = var.tags
 }
