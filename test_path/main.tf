@@ -1,7 +1,7 @@
 # Simple TF code
 resource "azurerm_resource_group" "main" {
   name     = var.rg-name
-  location = "West Europe"
+  location = var.location
   tags = var.tags
 }
 
@@ -24,6 +24,12 @@ resource "azurerm_cdn_endpoint" "main" {
     host_name = "www.contoso.com"
   }
   tags = var.tags
+}
+
+# variables
+variable "location" {
+  type = string
+  default = "westeurope"
 }
 
 variable "rg-name" {

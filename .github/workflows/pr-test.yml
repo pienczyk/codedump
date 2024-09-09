@@ -6,6 +6,7 @@ on:
     types:
       - opened
       - synchronize
+      - closed
     branches:
       - main  # or the branch where PRs are merged
     paths:
@@ -13,7 +14,7 @@ on:
 
 jobs:
   dev:
-    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.pull_request.merged == true)
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
     runs-on: ubuntu-latest
     environment: dev
 
@@ -24,9 +25,9 @@ jobs:
       - name: Print the changed files
         run: |
           echo "Running on DEV"
-  
+
   test:
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
     runs-on: ubuntu-latest
     environment: test
@@ -40,7 +41,7 @@ jobs:
           echo "Running on TEST"
 
   prod:
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
     runs-on: ubuntu-latest
     environment: prod
