@@ -1,0 +1,27 @@
+name: Test the workflow triggers
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - closed  # Trigger only when a PR is closed (merged or not)
+    branches:
+      - main  # or the branch where PRs are merged
+    paths:
+      - 'test_path/**'  # Only trigger if files in the `src/` directory are changed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Print the changed files
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+
+      - name: Print the PR number
+        run: |
+          echo "PR number: ${{ github.event.number }}"
