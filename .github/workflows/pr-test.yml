@@ -14,7 +14,7 @@ on:
 
 jobs:
   dev:
-    if: github.event.action == 'opened' || github.event.action == 'synchronize'
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
           echo "Running on DEV"
   
   test:
-    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
     runs-on: ubuntu-latest
 
@@ -39,7 +39,7 @@ jobs:
           echo "Running on TEST"
 
   prod:
-    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
     runs-on: ubuntu-latest
 
