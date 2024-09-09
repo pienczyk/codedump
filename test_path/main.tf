@@ -1,6 +1,6 @@
 # Simple TF code
 resource "azurerm_resource_group" "main" {
-  name     = "main-resources"
+  name     = var.rg-name
   location = "West Europe"
   tags = var.tags
 }
@@ -26,6 +26,9 @@ resource "azurerm_cdn_endpoint" "main" {
   tags = var.tags
 }
 
+variable "rg-name" {
+  type = string
+}
 
 variable "tags" {
   type = map(string)
