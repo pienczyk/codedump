@@ -1,5 +1,4 @@
 # Deployment with the ingress
-
 # ConfigMap
 ---
 apiVersion: v1
@@ -10,7 +9,6 @@ metadata:
 data:
   index.html: |
     <center> ghapp01 </center>
-
 
 # Deployment
 ---
