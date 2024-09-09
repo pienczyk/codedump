@@ -2,6 +2,7 @@
 resource "azurerm_resource_group" "main" {
   name     = "main-resources"
   location = "West Europe"
+  tags = var.tags
 }
 
 resource "azurerm_cdn_profile" "main" {
@@ -9,6 +10,7 @@ resource "azurerm_cdn_profile" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Standard_Verizon"
+  tags = var.tags
 }
 
 resource "azurerm_cdn_endpoint" "main" {
@@ -20,5 +22,14 @@ resource "azurerm_cdn_endpoint" "main" {
   origin {
     name      = "main"
     host_name = "www.contoso.com"
+  }
+  tags = var.tags
+}
+
+
+variable "tags" {
+  type = map(string)
+  default = {
+    project = "prtest"
   }
 }
