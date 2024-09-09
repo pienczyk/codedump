@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_cdn_profile" "main" {
-  name                = "main-cdn"
+  name                = var.cdn_profile_name
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Standard_Verizon"
@@ -35,4 +35,8 @@ variable "tags" {
   default = {
     project = "prtest"
   }
+}
+
+variable "cdn_profile_name" {
+  type = string
 }
