@@ -21,8 +21,13 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
+        
+       # Genereate timestamp tag
+      - name: Generate timestamp tag
+        id: timestamp
+        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
-      - name: Print the changed files
+      - name: Echo values
         run: |
           TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
           echo "Running on DEV"
@@ -38,9 +43,16 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v4
 
-      - name: Print the changed files
+      # Genereate timestamp tag
+      - name: Generate timestamp tag
+        id: timestamp
+        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Echo values
         run: |
+          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
           echo "Running on TEST"
+          echo "Generated tag: ${TAG_NAME}"
           
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -52,6 +64,13 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v4
 
-      - name: Print the changed files
+     # Genereate timestamp tag
+      - name: Generate timestamp tag
+        id: timestamp
+        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Echo values
         run: |
+          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
           echo "Running on PROD"
+          echo "Generated tag: ${TAG_NAME}"
