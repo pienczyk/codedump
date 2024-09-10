@@ -1,3 +1,5 @@
+# .github/workflows/main-workflow.yml
+
 name: Test the workflow triggers
 
 on:
@@ -15,62 +17,20 @@ on:
 jobs:
   dev:
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
-    runs-on: ubuntu-latest
-    environment: dev
-
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-        
-       # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on DEV"
-          echo "Generated tag: ${TAG_NAME}"
+    uses: ./.github/workflows/template-echo.yml
+    with:
+      environment: dev
 
   test:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
-    runs-on: ubuntu-latest
-    environment: stage
-
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-
-      # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on TEST"
-          echo "Generated tag: ${TAG_NAME}"
-          
+    uses: ./.github/workflows/template-echo.yml
+    with: 
+      environment: stage
+      
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
-    runs-on: ubuntu-latest
-    environment: prod
-
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-
-     # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on PROD"
-          echo "Generated tag: ${TAG_NAME}"
+    uses: ./.github/workflows/template-echo.yml
+    with:
+      environment: prod
