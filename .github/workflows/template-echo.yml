@@ -1,7 +1,4 @@
 # Echo template 
-
-# .github/workflows/common-steps.yml
-
 name: Common Steps
 
 on:
