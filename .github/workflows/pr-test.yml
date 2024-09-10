@@ -13,8 +13,6 @@ on:
       - main  # or the branch where PRs are merged
     paths:
       - 'test_path/**'  # Only trigger if files in the `test_path/` directory are changed
-env:
-  AGENT_VERSION: "ubuntu-latest"
 
 jobs:
   dev:
@@ -22,7 +20,6 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: dev
-      agent_version: ${{ env.AGENT_VERSION }}
 
   test:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -30,7 +27,6 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with: 
       environment: stage
-      agent_version: ${{ env.AGENT_VERSION }}
       
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -38,4 +34,3 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: prod
-      agent_version: ${{ env.AGENT_VERSION }}
