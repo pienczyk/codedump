@@ -38,8 +38,9 @@ jobs:
 
       - name: Print the changed files
         run: |
+          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
           echo "Running on TEST"
-
+          echo "Generated tag: ${TAG_NAME}"
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
