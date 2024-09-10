@@ -1,0 +1,18 @@
+# Echo template 
+name: Agent info
+
+on:
+  workflow_call:
+
+jobs:
+  run-common-steps:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        
+      - name: Agent info
+        run: |
+          echo "OS version: $(cat /etc/os-release)"
+          echo "Hostname: $(hostname)"
