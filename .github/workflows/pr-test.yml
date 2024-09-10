@@ -1,3 +1,5 @@
+# .github/workflows/main-workflow.yml
+
 name: Test the workflow triggers
 
 on:
@@ -19,19 +21,10 @@ jobs:
     environment: dev
 
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-        
-       # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on DEV"
-          echo "Generated tag: ${TAG_NAME}"
+      - name: Run Common Steps
+        uses: ./.github/workflows/template-echo.yml
+        with:
+          environment: dev
 
   test:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -40,20 +33,11 @@ jobs:
     environment: stage
 
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
+      - name: Run Common Steps
+        uses: ./.github/workflows/template-echo.yml
+        with:
+          environment: stage
 
-      # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on TEST"
-          echo "Generated tag: ${TAG_NAME}"
-          
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
@@ -61,16 +45,7 @@ jobs:
     environment: prod
 
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-
-     # Genereate timestamp tag
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Echo values
-        run: |
-          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
-          echo "Running on PROD"
-          echo "Generated tag: ${TAG_NAME}"
+      - name: Run Common Steps
+        uses: ./.github/workflows/template-echo.yml
+        with:
+          environment: prod
