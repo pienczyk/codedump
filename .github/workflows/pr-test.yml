@@ -12,7 +12,7 @@ on:
     branches:
       - main  # or the branch where PRs are merged
     paths:
-      - 'test_path/**'  # Only trigger if files in the `test_path/` directory are changed
+      - 'test_path/**'  # Only trigger if files in the `stage_path/` directory are changed
 
 jobs:
   dev:
@@ -21,7 +21,7 @@ jobs:
     with:
       environment: dev
 
-  test:
+  stage:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
     uses: ./.github/workflows/template-echo.yml
@@ -30,25 +30,28 @@ jobs:
       
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-    needs: test
+    needs: stage
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: prod
 
   agent_dev:
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
+    needs: dev
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: dev
 
   agent_stage:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    needs: stage
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: stage
       
   agent_prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    needs: prod
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: prod
