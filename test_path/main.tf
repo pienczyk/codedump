@@ -40,6 +40,7 @@ variable "tags" {
   type = map(string)
   default = {
     project = "prtest"
+    maintained_by = "terraform"
   }
 }
 
