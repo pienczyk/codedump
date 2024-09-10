@@ -4,13 +4,18 @@ name: Common Steps
 on:
   workflow_call:
     inputs:
+      agent_version:
+        required: true
+        type: string
+        default: "ubuntu-latest"
       environment:
         required: true
         type: string
+    
 
 jobs:
   run-common-steps:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.agent_version }}
     environment: ${{ inputs.environment }}
 
     steps:
