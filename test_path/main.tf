@@ -14,7 +14,7 @@ resource "azurerm_cdn_profile" "main" {
 }
 
 resource "azurerm_cdn_endpoint" "main" {
-  name                = "main"
+  name                = var.cdn_enpoint_name
   profile_name        = azurerm_cdn_profile.main.name
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -44,5 +44,9 @@ variable "tags" {
 }
 
 variable "cdn_profile_name" {
+  type = string
+}
+
+variable "cdn_enpoint_name" {
   type = string
 }
