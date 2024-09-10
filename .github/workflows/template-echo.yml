@@ -1,0 +1,33 @@
+# Echo template 
+name: Common Steps
+
+on:
+  workflow_call:
+    inputs:
+      agent_version:
+        required: true
+        type: string
+        default: "ubuntu-latest"
+      environment:
+        required: true
+        type: string
+    
+
+jobs:
+  run-common-steps:
+    runs-on: ${{ inputs.agent_version }}
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Generate timestamp tag
+        id: timestamp
+        run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Echo values
+        run: |
+          TAG_NAME=${{ env.DATE_TAG }}-${{ github.run_id }}${{ github.run_number }}
+          echo "Running on ${{ inputs.environment }}"
+          echo "Generated tag: ${TAG_NAME}"
