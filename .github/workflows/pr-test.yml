@@ -17,38 +17,20 @@ on:
 jobs:
   dev:
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
-    runs-on: ubuntu-latest
-    environment: dev
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Common Steps
-        uses: ./.github/workflows/template-echo.yml
-        with:
-          environment: dev
+    uses: ./.github/workflows/template-echo.yml
+    with:
+      environment: dev
 
   test:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: dev
-    runs-on: ubuntu-latest
-    environment: stage
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Common Steps
-        uses: ./.github/workflows/template-echo.yml
-        with:
-          environment: stage
-
+    uses: ./.github/workflows/template-echo.yml
+    with: 
+      environment: stage
+      
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: test
-    runs-on: ubuntu-latest
-    environment: prod
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Common Steps
-        uses: ./.github/workflows/template-echo.yml
-        with:
-          environment: prod
+    uses: ./.github/workflows/template-echo.yml
+    with:
+      environment: prod
