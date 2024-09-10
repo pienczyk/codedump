@@ -1,0 +1,23 @@
+# Echo template 
+name: Agent info
+
+on:
+  workflow_call:
+    inputs:
+        environment:
+          required: true
+          type: string
+
+jobs:
+  run-common-steps:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        
+      - name: Agent info
+        run: |
+          echo "Running on environment: ${{ inputs.environment }}"
+          echo "OS version: $(cat /etc/os-release)"
+          echo "Hostname: $(hostname)"
