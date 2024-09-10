@@ -34,3 +34,21 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: prod
+
+  agent_dev:
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
+    uses: ./.github/workflows/template-agent-info.yml
+    with:
+      environment: dev
+
+  agent_stage:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    uses: ./.github/workflows/template-agent-info.yml
+    with:
+      environment: stage
+      
+  agent_prod:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    uses: ./.github/workflows/template-agent-info.yml
+    with:
+      environment: prod
