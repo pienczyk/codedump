@@ -21,6 +21,7 @@ jobs:
     environment: dev
 
     steps:
+      - uses: actions/checkout@v4
       - name: Run Common Steps
         uses: ./.github/workflows/template-echo.yml
         with:
@@ -33,6 +34,7 @@ jobs:
     environment: stage
 
     steps:
+      - uses: actions/checkout@v4
       - name: Run Common Steps
         uses: ./.github/workflows/template-echo.yml
         with:
@@ -45,6 +47,7 @@ jobs:
     environment: prod
 
     steps:
+      - uses: actions/checkout@v4
       - name: Run Common Steps
         uses: ./.github/workflows/template-echo.yml
         with:
