@@ -20,6 +20,7 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: dev
+      agent_version: ubuntu-latest
 
   stage:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -27,6 +28,7 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with: 
       environment: stage
+      agent_version: ubuntu-latest
       
   prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -34,6 +36,7 @@ jobs:
     uses: ./.github/workflows/template-echo.yml
     with:
       environment: prod
+      agent_version: ubuntu-latest
 
   agent_dev:
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'closed' && github.event.pull_request.merged == true))
@@ -41,6 +44,7 @@ jobs:
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: dev
+      agent_version: ubuntu-latest
 
   agent_stage:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -48,6 +52,7 @@ jobs:
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: stage
+      agent_version: ubuntu-latest
       
   agent_prod:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -55,3 +60,4 @@ jobs:
     uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: prod
+      agent_version: ubuntu-latest
