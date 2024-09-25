@@ -1,0 +1,23 @@
+name: Deploy node.js app
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup_pkg_mgr:
+    uses: ./.github/workflows/setup-njs-pkg-mgr.yml
+    with:
+      agent_version: ubuntu-latest
+      package_manager: "bun"
+      package_manager_version: "1.1.27"
+  validate_install:
+    runs-on: ubuntu-latest
+    name: Validate pkg-mgr
+    steps:
+    - name: Show pkg mgr
+      run:
+        if [ ! -d "$HOME/.bun" ]; then
+          npm --version
+        else
+          bun --version
+        fi
