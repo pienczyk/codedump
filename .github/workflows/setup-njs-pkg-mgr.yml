@@ -1,0 +1,59 @@
+# Reusable workflow template for installing a package manager
+name: Setup Node.js Package Manager
+on:
+  workflow_dispatch:
+    inputs:
+      agent_version:
+        description: "Agent version"
+        required: true
+        type: string
+        default: ubuntu-latest
+      package_manager:
+        description: "Package manager (npm, bun)"
+        required: true
+        type: string
+      package_manager_version:
+        description: "Package manager version"
+        required: true
+        type: string
+jobs:
+  setup_njs_pkg_mgr:
+    runs-on: ${{ inputs.agent_version }}
+    name: Setup Node.js Package Manager
+    defaults:
+      run:
+        shell: bash
+    steps:
+    # NPM
+    # Setup npm
+    - name: Setup ${{ inputs.package_manager }} package manager
+      id: setup-node
+      if: ${{ inputs.package_manager == 'npm' }}
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: ${{ inputs.package_manager_version }}
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json' 
+      
+    # Bun
+    # Setup bun
+    # Cache bun installation
+    - name: Cache bun installation
+      id: cache-bun
+      uses: actions/cache@v3
+      with:
+        path: ~/.bun
+        key: ${{ runner.os }}-bun-${{ inputs.package_manager_version }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+
+    - name: Setup bun package manager
+      id: setup-bun
+      if: ${{ inputs.package_manager == 'bun' }}
+      run: |
+        if [ ! -d "$HOME/.bun" ]; then
+          curl -fsSL https://bun.sh/install | bash -s "bun-v$(cat ${{ inputs.package_manager_version }})"
+        fi
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
+        bun --version
