@@ -17,8 +17,4 @@ jobs:
     steps:
     - name: Show pkg mgr
       run:
-        if [ ! -d "$HOME/.bun" ]; then
-          npm --version
-        else
-          bun --version
-        fi
+        if [ ! -d "$HOME/.bun" ]; then npm --version; else bun --version; fi
