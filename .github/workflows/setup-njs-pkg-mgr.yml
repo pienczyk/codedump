@@ -1,7 +1,7 @@
 # Reusable workflow template for installing a package manager
 name: Setup Node.js Package Manager
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       agent_version:
         description: "Agent version"
