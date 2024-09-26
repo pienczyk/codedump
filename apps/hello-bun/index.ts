@@ -1,19 +1,30 @@
 import axios from 'axios';
 import chalk from 'chalk';
-import dayjs from 'dayjs';  // Import dayjs
 
-// Function to fetch weather data from wttr.in
-async function fetchWeather() {
-  try {
-    const response = await axios.get('https://wttr.in/gdansk?format=3'); // Simple format for concise output
-    console.log(chalk.blue(`Weather in Gdansk: ${response.data}`));  // Display weather
-  } catch (error) {
-    console.error(chalk.red("Error fetching weather data:"), error);
-  }
+async function fetchWeather(city: string) {
+    try {
+        const response = await axios.get(`https://wttr.in/${city}?format=3`); // Fetch weather data
+        console.log(chalk.green('Weather data fetched successfully:', response.data)); // Debug line
+        return response.data;
+    } catch (error) {
+        console.error(chalk.red('Error fetching weather data:'), error);
+        return null;
+    }
 }
 
-// Use dayjs to display the current date and time
-console.log(chalk.yellow(`Current date and time: ${dayjs().format()}`));
+async function displayWeather() {
+    const weather = await fetchWeather('Gdansk'); // Fetch weather for Gdansk
+    const appDiv = document.getElementById('app');
 
-// Fetch the weather data
-fetchWeather();
+    if (appDiv) {
+        if (weather) {
+            appDiv.innerHTML = `<h1>Weather in Gdansk</h1><p>${weather}</p>`;
+        } else {
+            appDiv.innerHTML = `<h1>Error fetching weather data</h1>`;
+        }
+    } else {
+        console.error(chalk.red('Element with ID "app" not found')); // Debug line
+    }
+}
+
+displayWeather(); // Call the function to display the weather
