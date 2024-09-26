@@ -2,17 +2,18 @@ import axios from 'axios';
 import chalk from 'chalk';
 import dayjs from 'dayjs';  // Import dayjs
 
-// Use dayjs to display the current date
+// Function to fetch weather data from wttr.in
+async function fetchWeather() {
+  try {
+    const response = await axios.get('https://wttr.in/gdansk?format=3'); // Simple format for concise output
+    console.log(chalk.blue(`Weather in Gdansk: ${response.data}`));  // Display weather
+  } catch (error) {
+    console.error(chalk.red("Error fetching weather data:"), error);
+  }
+}
+
+// Use dayjs to display the current date and time
 console.log(chalk.yellow(`Current date and time: ${dayjs().format()}`));
 
-// Make an HTTP request using axios
-axios.get('https://api.github.com/').then((response) => {
-  console.log(chalk.green("Data fetched successfully!"));
-  console.log(response.data);  // Output the fetched data
-}).catch((error) => {
-  console.log(chalk.red("An error occurred while fetching data."));
-  console.error(error);
-});
-
-// Continue with a simple Hello World output
-console.log(chalk.blue("Hello, World!"));
+// Fetch the weather data
+fetchWeather();
