@@ -19,12 +19,25 @@ jobs:
     - name: Setup bun package manager
       id: setup-bun
       run: |
-        if [ ! -d "$HOME/.bun" ]; then
+        if [ -d "$HOME/.bun" ]; then
+        CURRENT_VERSION=$(bun --version)
+        DESIRED_VERSION="1.1.29"
+        if [ "$CURRENT_VERSION" != "$DESIRED_VERSION" ]; then
+          echo "Updating Bun from $CURRENT_VERSION to $DESIRED_VERSION..."
+          rm -rf "$HOME/.bun" # Optional: Remove existing installation
+          curl -fsSL https://bun.sh/install | bash -s "$DESIRED_VERSION"
+        else
+          echo "Bun is already up to date ($CURRENT_VERSION)."
+          fi
+        else
           curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
         fi
-        export BUN_INSTALL="$HOME/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
-        echo "Installed bun version: $(bun --version)"
+      #   if [ ! -d "$HOME/.bun" ]; then
+      #     curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
+      #   fi
+      #   export BUN_INSTALL="$HOME/.bun"
+      #   export PATH="$BUN_INSTALL/bin:$PATH"
+      #   echo "Installed bun version: $(bun --version)"
 
         # echo "Create cache directories"
         # mkdir -p ${{ github.workspace }}/.bun/cache
