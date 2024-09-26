@@ -25,12 +25,12 @@ jobs:
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
 
-    - name: Install dependencies
-      run: |
-        BUN_INSTALL="$HOME/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
-        cd ./apps/hello-bun
-        bun install
+    # - name: Install dependencies
+    #   run: |
+    #     BUN_INSTALL="$HOME/.bun"
+    #     export PATH="$BUN_INSTALL/bin:$PATH"
+    #     cd ./apps/hello-bun
+    #     bun install
         
     # Cache bun installation
     - name: Cache modules
@@ -48,5 +48,7 @@ jobs:
         cd ./apps/hello-bun
         BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
+        bun install
         bun run build
+        
      
