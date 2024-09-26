@@ -14,17 +14,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Setup bun
-    # Cache bun installation
-    - name: Cache modules
-      id: cache-modules
-      uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
-        restore-keys: |
-          ${{ runner.os }}-webui-
-          
+    # Setup bun      
     # Setup bun package manager
     - name: Setup bun package manager
       id: setup-bun
@@ -35,12 +25,26 @@ jobs:
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
 
+    - name: Install dependencies
+      run: |
+        cd ./apps/hello-bun
+        bun install
+        
+    # Cache bun installation
+    - name: Cache modules
+      id: cache-modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
+        restore-keys: |
+          ${{ runner.os }}-webui-
+
     # Build the SPA bun
     - name: Build the app
       run: |
         cd ./apps/hello-bun
         BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
-        bun install
         bun run build
      
