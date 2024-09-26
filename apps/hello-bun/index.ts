@@ -1,5 +1,9 @@
 import axios from 'axios';
 import chalk from 'chalk';
+import dayjs from 'dayjs';  // Import dayjs
+
+// Use dayjs to display the current date
+console.log(chalk.yellow(`Current date and time: ${dayjs().format()}`));
 
 // Make an HTTP request using axios
 axios.get('https://api.github.com/').then((response) => {
