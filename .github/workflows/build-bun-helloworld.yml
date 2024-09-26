@@ -25,6 +25,10 @@ jobs:
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
 
+        echo "Create cache directories"
+        mkdir -p ${{ github.workspace }}/.bun/cache
+        mkdir -p ${{ inputs.app_dir }}/node_modules
+
     # Cache bun installation
     - name: Cache modules
       id: cache-modules
@@ -33,8 +37,8 @@ jobs:
         path: |
           ${{ github.workspace }}/.bun/cache
           ./apps/hello-bun/node_modules
-        # key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
-        key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}-${{ steps.cache-modules.outputs.cache-hit }}
+        key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
+        # key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}-${{ steps.cache-modules.outputs.cache-hit }}
         restore-keys: |
           ${{ runner.os }}-webui-
 
