@@ -27,6 +27,8 @@ jobs:
 
     - name: Install dependencies
       run: |
+        BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
         cd ./apps/hello-bun
         bun install
         
