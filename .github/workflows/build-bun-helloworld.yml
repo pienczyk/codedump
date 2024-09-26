@@ -27,7 +27,7 @@ jobs:
 
         echo "Create cache directories"
         mkdir -p ${{ github.workspace }}/.bun/cache
-        mkdir -p ${{ inputs.app_dir }}/node_modules
+        mkdir -p ./apps/hello-bun/node_modules
 
     # Cache bun installation
     - name: Cache modules
