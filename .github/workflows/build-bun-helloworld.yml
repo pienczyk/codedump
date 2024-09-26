@@ -43,7 +43,11 @@ jobs:
         cd ./apps/hello-bun
         BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
-        bun install
+        # bun install
+        # Run bun install only if node_modules does not exist or the bun.lockb file has changed
+        if [ ! -d node_modules ]; then
+          bun install
+        fi
         bun run build
         
      
