@@ -26,9 +26,9 @@ jobs:
         export PATH="$BUN_INSTALL/bin:$PATH"
         echo "Installed bun version: $(bun --version)"
 
-        echo "Create cache directories"
-        mkdir -p ${{ github.workspace }}/.bun/cache
-        mkdir -p ./apps/hello-bun/node_modules
+        # echo "Create cache directories"
+        # mkdir -p ${{ github.workspace }}/.bun/cache
+        # mkdir -p ./apps/hello-bun/node_modules
 
     # Cache bun installation
     - name: Cache modules
