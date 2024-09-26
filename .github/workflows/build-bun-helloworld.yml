@@ -25,6 +25,13 @@ jobs:
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
 
+    # Restore cache
+    # - uses: actions/cache/restore@v4
+    #   id: restore-modules
+    #   with:
+    #     path: ./apps/hello-bun/node_modules
+    #     key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
+
     # Cache bun installation
     - name: Cache modules
       id: cache-modules
@@ -32,8 +39,8 @@ jobs:
       with:
         path: ./apps/hello-bun/node_modules
         key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
-        restore-keys: |
-          ${{ runner.os }}-webui-
+        # restore-keys: |
+        #   ${{ runner.os }}-webui-
 
     # Build the SPA bun
     - name: Build the app
