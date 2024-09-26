@@ -1,0 +1,37 @@
+name: Build and deploy Webapp UI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_app:
+    runs-on: ubuntu-latest
+    name: Build the app
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Setup bun
+    # Cache bun installation
+    - name: Cache modules
+      id: cache-modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+          
+    # Setup bun package manager
+    - name: Setup bun package manager
+      id: setup-bun
+      run: |
+        if [ ! -d "$HOME/.bun" ]; then
+          curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.27)"
+        fi
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
+     
