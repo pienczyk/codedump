@@ -21,9 +21,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: node_modules
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
         restore-keys: |
-          ${{ runner.os }}-bun-
+          ${{ runner.os }}-node-
           
     # Setup bun package manager
     - name: Setup bun package manager
