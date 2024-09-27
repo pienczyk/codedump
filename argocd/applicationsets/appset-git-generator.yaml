@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-appsets-git-gen-01
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: git@github.com:pienczyk/codedump.git
+        revision: main # or a specific branch/tag
+        directories:
+          - path: "apps/kustomize/project01/overlays/*" # This will match all overlays
+  template:
+    metadata:
+      name: "argocd-appset-{{path.basename}}" # Use the directory name as the application name
+    spec:
+      project: "{{path.basename}}-apps" # Match the application project based on the directory name
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: git@github.com:pienczyk/codedump.git
+        targetRevision: main
+        path: "{{path}}" # The path will be dynamically set to the matched directory
+      destination:
+        server: "in-cluster"
+        namespace: "{{path.basename}}" # Use the directory name for the namespace

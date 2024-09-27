@@ -16,4 +16,4 @@ spec:
       namespace: dev
       server: "*"
   sourceRepos:
-    - git@gitlab.com:pienczyk/codedump.git
+    - git@github.com:pienczyk/codedump.git

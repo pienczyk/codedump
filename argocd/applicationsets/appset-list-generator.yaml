@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-appsets-list-gen-01
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            env_path: dev # Correct indentation
+  template:
+    metadata:
+      name: "argocd-appset-'{{.Env}}'"
+    spec:
+      project: "'{{.Env}}'-apps"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: git@github.com:pienczyk/codedump.git
+        targetRevision: main
+        path: apps/kustomize/project01/overlays/{{.Env_path}}
+      destination:
+        server: in-cluster
+        namespace: "'{{.Env}}'"
