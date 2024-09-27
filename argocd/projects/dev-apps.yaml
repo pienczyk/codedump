@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev-apps
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: Development applications
+  destinations:
+    - name: "*"
+      namespace: dev
+      server: "*"
+  sourceRepos:
+    - git@gitlab.com:pienczyk/codedump.git
