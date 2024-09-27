@@ -7,7 +7,7 @@ spec:
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-  description: Development applications
+  description: Production applications
   destinations:
     - name: "*"
       namespace: prod
