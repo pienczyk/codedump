@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: stage-apps
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: Stage applications
+  destinations:
+    - name: "*"
+      namespace: stage
+      server: "*"
+  sourceRepos:
+    - git@gitlab.com:pienczyk/codedump.git
