@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: web-server
+          image: httpd:alpine3.20
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 80
+              name: web-server-port
+          volumeMounts:
+            - mountPath: /usr/local/apache2/htdocs/
+              name: index-cm-vol
+      restartPolicy: Always
+      volumes:
+        - name: index-cm-vol
+          configMap:
+            name: dev-index-html

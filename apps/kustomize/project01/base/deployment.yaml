@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  labels:
+    app: web-server
+    maintainer: panKleks
+spec:
+  selector:
+    matchLabels:
+      app: web-server
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+        - name: web-server
+          image: nginx:1.26.0-alpine
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 80
+              name: web-server-port
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: index-cm-vol
+      restartPolicy: Always
+      volumes:
+        - name: index-cm-vol
+          configMap:
+            name: index-html
