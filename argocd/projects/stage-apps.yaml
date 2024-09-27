@@ -3,6 +3,9 @@ kind: AppProject
 metadata:
   name: stage-apps
   namespace: argocd
+  labels:
+    tier: root
+    env: stage
 spec:
   clusterResourceWhitelist:
     - group: "*"

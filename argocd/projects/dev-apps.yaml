@@ -3,6 +3,9 @@ kind: AppProject
 metadata:
   name: dev-apps
   namespace: argocd
+  labels:
+    tier: root
+    env: dev
 spec:
   clusterResourceWhitelist:
     - group: "*"
