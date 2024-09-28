@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: qa-apps
+  namespace: argocd
+  labels:
+    tier: root
+    env: qa
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: QA applications
+  destinations:
+    - name: "*"
+      namespace: qa
+      server: "*"
+  sourceRepos:
+    - git@github.com:pienczyk/codedump.git
