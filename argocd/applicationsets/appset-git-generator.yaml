@@ -3,6 +3,9 @@ kind: ApplicationSet
 metadata:
   name: argocd-appsets-git-gen-01
   namespace: argocd
+  labels:
+    tier: apps
+    project: argocd-playground
 spec:
   generators:
     - git:
@@ -22,7 +25,12 @@ spec:
       source:
         repoURL: git@github.com:pienczyk/codedump.git
         targetRevision: main
-        path: "{{path}}" # The path will be dynamically set to the matched directory
+        path: "{{path}}"
       destination:
-        server: "in-cluster"
-        namespace: "{{path.basename}}" # Use the directory name for the namespace
+        name: in-cluster
+        # or
+        #server: "https://kubernetes.default.svc"
+        namespace: "{{path.basename}}"
+      info:
+        - name: "Application name:"
+          value: "argocd-appset-{{path.basename}}"
