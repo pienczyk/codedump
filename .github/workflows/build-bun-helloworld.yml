@@ -23,7 +23,7 @@ jobs:
         # export BUN_INSTALL="$HOME/.bun"
         # export PATH="$BUN_INSTALL/bin:$PATH"
         # echo "Installed bun version: $(bun --version)"
-        cat $HOME/.bashrc
+        source $HOME/.bashrc
         
       # if [ -d "$HOME/.bun" ]; then
       # CURRENT_VERSION=$(bun --version)
@@ -65,10 +65,11 @@ jobs:
     # Build the SPA bun
     - name: Build the app
       run: |
-        cat $HOME/.bashrc
+        source $HOME/.bashrc
         # cd ./apps/hello-bun
         # # BUN_INSTALL="$HOME/.bun"
         # # export PATH="$BUN_INSTALL/bin:$PATH"
+        bun --version
         # bun install
         # bun run build
         
