@@ -20,9 +20,10 @@ jobs:
       id: setup-bun
       run: |
         curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
-        export BUN_INSTALL="$HOME/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
-        echo "Installed bun version: $(bun --version)"
+        # export BUN_INSTALL="$HOME/.bun"
+        # export PATH="$BUN_INSTALL/bin:$PATH"
+        # echo "Installed bun version: $(bun --version)"
+        cat $HOME/.bashrc
         
       # if [ -d "$HOME/.bun" ]; then
       # CURRENT_VERSION=$(bun --version)
@@ -49,24 +50,24 @@ jobs:
         # mkdir -p ./apps/hello-bun/node_modules
 
     # Cache bun installation
-    - name: Cache modules
-      id: cache-modules
-      uses: actions/cache@v4
-      with:
-        path: |
-          ${{ github.workspace }}/.bun/cache
-          ./apps/hello-bun/node_modules
-        key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
-        # key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}-${{ steps.cache-modules.outputs.cache-hit }}
-        restore-keys: |
-          ${{ runner.os }}-webui-
+    # - name: Cache modules
+    #   id: cache-modules
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       ${{ github.workspace }}/.bun/cache
+    #       ./apps/hello-bun/node_modules
+    #     key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}
+    #     # key: ${{ runner.os }}-webui-${{ hashFiles('**/bun.lockb') }}-${{ steps.cache-modules.outputs.cache-hit }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-webui-
 
     # Build the SPA bun
     - name: Build the app
       run: |
         cd ./apps/hello-bun
-        BUN_INSTALL="$HOME/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
+        # BUN_INSTALL="$HOME/.bun"
+        # export PATH="$BUN_INSTALL/bin:$PATH"
         bun install
         bun run build
         
