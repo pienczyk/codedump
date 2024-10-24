@@ -20,10 +20,12 @@ jobs:
       id: setup-bun
       run: |
         curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
-        export BUN_INSTALL="$HOME/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
+        echo $HOME
+        # export BUN_INSTALL="$HOME/.bun"
+        # export PATH="$BUN_INSTALL/bin:$PATH"
         # echo "Installed bun version: $(bun --version)"
         # source $HOME/.bashrc
+        source /home/runner/.bashrc
         echo $PATH
         
       # if [ -d "$HOME/.bun" ]; then
@@ -67,6 +69,7 @@ jobs:
     - name: Build the app
       run: |
         echo $PATH
+        echo $HOME
         # cd ./apps/hello-bun
         # # BUN_INSTALL="$HOME/.bun"
         # # export PATH="$BUN_INSTALL/bin:$PATH"
