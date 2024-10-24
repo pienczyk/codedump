@@ -65,10 +65,11 @@ jobs:
     # Build the SPA bun
     - name: Build the app
       run: |
-        cd ./apps/hello-bun
-        # BUN_INSTALL="$HOME/.bun"
-        # export PATH="$BUN_INSTALL/bin:$PATH"
-        bun install
-        bun run build
+        cat $HOME/.bashrc
+        # cd ./apps/hello-bun
+        # # BUN_INSTALL="$HOME/.bun"
+        # # export PATH="$BUN_INSTALL/bin:$PATH"
+        # bun install
+        # bun run build
         
      
