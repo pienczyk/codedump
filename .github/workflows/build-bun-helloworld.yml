@@ -10,9 +10,6 @@ jobs:
     defaults:
       run:
         shell: bash
-    env:
-      PATH: ${{ env.PATH }}/$HOME/.bun:${{ env.PATH }}  # Replace with the actual directory path
-    
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -24,6 +21,7 @@ jobs:
       run: |
         curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
         echo $HOME
+        echo "$HOME/.bun" >> $GITHUB_PATH
         # export BUN_INSTALL="$HOME/.bun"
         # export PATH="$BUN_INSTALL/bin:$PATH"
         # echo "Installed bun version: $(bun --version)"
@@ -76,7 +74,7 @@ jobs:
         # cd ./apps/hello-bun
         # # BUN_INSTALL="$HOME/.bun"
         # # export PATH="$BUN_INSTALL/bin:$PATH"
-        # bun --version
+        bun --version
         # bun install
         # bun run build
         
