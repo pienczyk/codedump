@@ -28,7 +28,7 @@ jobs:
         # source $HOME/.bashrc
         # source /home/runner/.bashrc
         echo $PATH
-        bun --version
+        # bun --version
         
       # if [ -d "$HOME/.bun" ]; then
       # CURRENT_VERSION=$(bun --version)
