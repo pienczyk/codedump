@@ -20,8 +20,7 @@ jobs:
       id: setup-bun
       run: |
         curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.29"
-        echo $HOME
-        echo "$HOME/.bun" >> $GITHUB_PATH
+        echo "$HOME/.bun"=$PATH >> /runnertmp/.env
         # export BUN_INSTALL="$HOME/.bun"
         # export PATH="$BUN_INSTALL/bin:$PATH"
         # echo "Installed bun version: $(bun --version)"
