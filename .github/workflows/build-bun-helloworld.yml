@@ -11,7 +11,7 @@ jobs:
       run:
         shell: bash
     env:
-      PATH: ${{ runner.tool_cache }}/$HOME/.bun:${{ env.PATH }}  # Replace with the actual directory path
+      PATH: ${{ env.PATH }}/$HOME/.bun:${{ env.PATH }}  # Replace with the actual directory path
     
     steps:
     - name: Checkout
