@@ -74,7 +74,7 @@ jobs:
         # cd ./apps/hello-bun
         # # BUN_INSTALL="$HOME/.bun"
         # # export PATH="$BUN_INSTALL/bin:$PATH"
-        # bun --version
+        bun --version
         # bun install
         # bun run build
         
