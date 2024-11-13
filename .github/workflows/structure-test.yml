@@ -5,7 +5,7 @@ on:
 
 jobs:
   agent_prod:
-    uses: ./.github/workflows/templates/template-agent-info.yml
+    uses: ./.github/workflows/template-agent-info.yml
     with:
       environment: prod
       agent_version: ubuntu-latest
