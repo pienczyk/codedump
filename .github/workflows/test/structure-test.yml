@@ -1,0 +1,11 @@
+name: Test the workflow directory structure
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  agent_prod:
+    uses: ./.github/workflows/templates/template-agent-info.yml
+    with:
+      environment: prod
+      agent_version: ubuntu-latest
