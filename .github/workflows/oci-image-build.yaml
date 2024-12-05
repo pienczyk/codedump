@@ -11,7 +11,7 @@ jobs:
       defaults:
         run:
           shell: bash
-          working-directory: ./api/oci-build
+          working-directory: ./apps/oci-build
       env:
         IMAGE_NAME: custom-nginx
         DOCKER_REPO: pienczyk
