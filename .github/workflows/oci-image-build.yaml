@@ -58,4 +58,4 @@ jobs:
 
         - name: Test
           run: |
-            docker run --rm pienczyk/custom-nginx:latest
+            docker run --rm pienczyk/custom-nginx:latest sh -c "nginx && sleep 2"
