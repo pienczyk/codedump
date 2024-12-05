@@ -11,7 +11,6 @@ jobs:
       defaults:
         run:
           shell: bash
-          working-directory: ./apps/oci-build
       env:
         IMAGE_NAME: custom-nginx
         DOCKER_REPO: pienczyk
@@ -52,7 +51,7 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v6
           with:
-            file: Dockerfile
+            file: apps/oci-build
             tags: ${{ steps.meta.outputs.tags }}
             load: true
 
