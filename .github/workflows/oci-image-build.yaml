@@ -28,7 +28,7 @@ jobs:
 
         # Set up Docker Buildx.
         - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@3
+          uses: docker/setup-buildx-action@v3
           
         # Genereate timestamp tag
         - name: Generate timestamp tag
