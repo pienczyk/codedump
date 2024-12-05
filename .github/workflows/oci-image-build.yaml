@@ -48,3 +48,15 @@ jobs:
             tags: |
               type=raw,value=${{ github.run_id }}${{ github.run_number }}
               type=sha,enable=true,format=short
+
+        - name: Build and push
+          uses: docker/build-push-action@v6
+          with:
+            file: Dockerfile
+            context: ./
+            tags: ${{ steps.meta.outputs.tags }}
+            push: false
+
+        - name: Test
+        run: |
+          docker run --rm ${{ steps.meta.outputs.tags }}       
