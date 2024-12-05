@@ -58,4 +58,4 @@ jobs:
 
         - name: Test
           run: |
-            docker run --rm custom-nginx:${{ env.DATE_TAG }}
+            docker run --rm pienczyk/custom-nginx:latest
