@@ -55,7 +55,7 @@ jobs:
             file: Dockerfile
             context: ./
             tags: ${{ steps.meta.outputs.tags }}
-            push: false
+            load: true
 
         - name: Test
           run: |
