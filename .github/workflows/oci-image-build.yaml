@@ -60,4 +60,4 @@ jobs:
           run: |
             IMAGE_TAG=$(echo "${{ steps.meta.outputs.tags }}" | cut -d ',' -f1)
             echo "Running Docker image with tag: $IMAGE_TAG"
-            docker run --rm -t IMAGE_NAME:$IMAGE_TAG  
+            docker run --rm IMAGE_NAME:$IMAGE_TAG  
