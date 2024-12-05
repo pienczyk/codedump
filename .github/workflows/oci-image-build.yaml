@@ -1,0 +1,25 @@
+name: Build, test and push the OCI image
+
+on:
+  workflow_dispatch:
+
+jobs:
+    # Build, tag and push the image
+    build_and_push:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          shell: bash
+          working-directory: ./api/oci-build
+      steps:
+        # Checkout self to a runner
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        # Install QEMU static binaries.
+        - name: Set up QEMU
+          uses: docker/setup-qemu-action@v3
+
+        # Set up Docker Buildx.
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
