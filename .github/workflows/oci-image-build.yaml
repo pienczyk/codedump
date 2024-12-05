@@ -44,7 +44,7 @@ jobs:
               latest=true
               prefix=${{ env.DATE_TAG }}-
             images: |
-              $DOCKER_REPO/$IMAGE_NAME
+              ${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
             tags: |
               type=raw,value=${{ github.run_id }}${{ github.run_number }}
               type=sha,enable=true,format=short
